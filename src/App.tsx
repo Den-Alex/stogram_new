@@ -4,21 +4,27 @@ import {Header} from './components/Header/Header';
 import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from 'react-router-dom';
-import {state} from "./redux/state";
+import {Route} from 'react-router-dom';
+import {StateType} from "./redux/state";
 
-function App(props: any) {
+type AppType = {
+    state: StateType
+    addPost: (postMessage: string) => void
+    updateNewPostText: (newText: string) => void
+}
+
+function App(props: AppType) {
 
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <Route path='/profile' render={ () => <Profile posts={state.profilePage.posts}/> }/>
-                <Route path='/dialogs' render={ () => <Dialogs dialogs={state.dialogsPage.dialogs}
-                                                               messages={state.dialogsPage.messages}/> }/>
-            </div>
-        </BrowserRouter>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
+                                                          addPost={props.addPost}
+                                                          updateNewPostText={props.updateNewPostText}
+            />}/>
+            <Route path='/dialogs' render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+        </div>
     );
 }
 
