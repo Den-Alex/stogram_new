@@ -1,4 +1,3 @@
-import {rerenderEntireTree} from "../render";
 
 export type PostType = {
     id: number
@@ -28,41 +27,63 @@ export type StateType = {
     sidebar: SidebarType
 }
 
-export let state: StateType = {
-    profilePage: {
-        posts: [
-            {id: 1, message: 'YOU', likesCount: 10},
-            {id: 2, message: 'YYYYY', likesCount: 12},
-        ],
-        newPostText: "Deniska"
+export type StoreType = {
+    _state: StateType
+    updateNewPostText: (newText: string) => void
+    onChange: () => void
+    addPost: (postMessage: string) => void
+    subscribe: (observer: () => void) => void
+    getState: () => StateType
+}
+export let store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: 1, message: 'YOU', likesCount: 10},
+                {id: 2, message: 'YYYYY', likesCount: 12},
+            ],
+            newPostText: "Deniska"
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: 1, name: 'Den'},
+                {id: 2, name: 'Marina'},
+                {id: 3, name: 'Elena'},
+                {id: 4, name: 'Meri'},
+            ],
+            messages: [
+                {id: 1, message: 'YYYYY'},
+                {id: 2, message: 'OOOOO'},
+                {id: 3, message: 'UUUUU'},
+                {id: 4, message: 'FFFF'},
+            ]
+        },
+        sidebar: {}
     },
-    dialogsPage: {
-        dialogs: [
-            {id: 1, name: 'Den'},
-            {id: 2, name: 'Marina'},
-            {id: 3, name: 'Elena'},
-            {id: 4, name: 'Meri'},
-        ],
-        messages: [
-            {id: 1, message: 'YYYYY'},
-            {id: 2, message: 'OOOOO'},
-            {id: 3, message: 'UUUUU'},
-            {id: 4, message: 'FFFF'},
-        ]
+    onChange() {
+        console.log("hello")
     },
-    sidebar: {}
+    addPost(postMessage: string) {
+        let newPost: PostType = {
+            id: 5,
+            message: this._state.profilePage.newPostText,
+            likesCount: 0
+        };
+        this._state.profilePage.posts.push(newPost);
+        this._state.profilePage.newPostText = "";
+        this.onChange();
+    },
+    updateNewPostText(newText: string) {
+        this._state.profilePage.newPostText = newText;
+        this.onChange();
+    },
+    subscribe(observer: () => void) {
+        this.onChange = observer;
+    },
+    getState() {
+        return this._state
+    }
 }
-export let AddPost = (postMessage: string) => {
-    let newPost: PostType = {
-        id: 5,
-        message: state.profilePage.newPostText,
-        likesCount: 0
-    };
-    state.profilePage.posts.push(newPost);
-    state.profilePage.newPostText = "";
-    rerenderEntireTree(state);
-}
-export let updateNewPostText = (newText: string) => {
-    state.profilePage.newPostText=newText;
-    rerenderEntireTree(state);
-}
+
+
+
