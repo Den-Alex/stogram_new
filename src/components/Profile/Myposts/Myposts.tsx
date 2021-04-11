@@ -1,31 +1,44 @@
 import React, {ChangeEvent} from "react";
 import s from './Myposts.module.css'
 import {Posts} from "./Post/Posts";
-import {ProfilePageType} from "../../../redux/state";
+import {
+    ActionTypes,
+    addActionPostCreator,
+    AddPostActiveType,
+    ChangeNewTextActionType,
+    ProfilePageType,
+    updateNewPostTextActionCreator
+} from "../../../redux/state";
 
 export type MypostsType = {
     state: ProfilePageType
     newPostText: string
-    addPost: (postMessage: string) => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionTypes) => void
 }
+
 
 export function Myposts(props: MypostsType) {
 
     let postsElements = props.state.posts.map(p => <Posts message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
     let AddPost = () => {
-            props.addPost(props.newPostText);
+        props.dispatch(addActionPostCreator(props.newPostText));
     }
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewPostText(e.currentTarget.value);
+        props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value })
     }
+    // let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    //     props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value});
+    // }
+    // let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    //     props.dispatch(updateNewPostTextActionCreator(props.n));
+    // }
     return (
         <div className={s.content}>
             <h3>My post</h3>
             <div>
                 <div>
-                    <textarea onChange={onPostChange}  value={props.newPostText}/>
+                    <textarea onChange={onPostChange} value={props.newPostText}/>
                 </div>
                 <div>
                     <button onClick={AddPost}>Add post</button>

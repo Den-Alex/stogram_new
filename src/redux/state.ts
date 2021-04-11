@@ -1,4 +1,3 @@
-
 export type PostType = {
     id: number
     message: string
@@ -26,15 +25,23 @@ export type StateType = {
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
-
+export type AddPostActiveType = {
+    type: "ADD-POST"
+    newPostText: string
+}
+export type ChangeNewTextActionType ={
+    type: "UPDATE-NEW-POST-TEXT"
+    newText: string
+}
+export type ActionTypes = AddPostActiveType | ChangeNewTextActionType
 export type StoreType = {
     _state: StateType
-    updateNewPostText: (newText: string) => void
-    onChange: () => void
-    addPost: (postMessage: string) => void
+    callSubscriber: () => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
+    dispatch: (action: ActionTypes) => void
 }
+
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -60,28 +67,42 @@ export let store: StoreType = {
         },
         sidebar: {}
     },
-    onChange() {
+    callSubscriber() {
         console.log("hello")
     },
-    addPost(postMessage: string) {
-        let newPost: PostType = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = "";
-        this.onChange();
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        this.onChange();
-    },
     subscribe(observer: () => void) {
-        this.onChange = observer;
+        this.callSubscriber = observer;
     },
     getState() {
         return this._state
+    },
+    dispatch(action) {
+        if (action.type === "ADD-POST") {
+            let newPost: PostType = {
+                id: 5,
+                message: action.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = "";
+            this.callSubscriber();
+        } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText;
+            this.callSubscriber();
+        }
+    }
+
+}
+export let addActionPostCreator = (newPostText: string): AddPostActiveType => {
+    return {
+        type: "ADD-POST",
+        newPostText: newPostText
+    }
+}
+export let updateNewPostTextActionCreator = (newText: string): ChangeNewTextActionType => {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        newText: newText
     }
 }
 
