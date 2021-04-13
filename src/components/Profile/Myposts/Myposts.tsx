@@ -6,7 +6,7 @@ import {
     addActionPostCreator,
     AddPostActiveType,
     ChangeNewTextActionType,
-    ProfilePageType,
+    ProfilePageType, UPDATE_NEW_POST_TEXT,
     updateNewPostTextActionCreator
 } from "../../../redux/state";
 
@@ -25,7 +25,7 @@ export function Myposts(props: MypostsType) {
         props.dispatch(addActionPostCreator(props.newPostText));
     }
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value })
+        props.dispatch({type: UPDATE_NEW_POST_TEXT, newText: e.currentTarget.value })
     }
     // let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     //     props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value});
