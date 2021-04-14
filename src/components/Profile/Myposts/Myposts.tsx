@@ -20,7 +20,9 @@ export type MypostsType = {
 export function Myposts(props: MypostsType) {
 
     let postsElements = props.state.posts.map(p => <Posts message={p.message} likesCount={p.likesCount} id={p.id}/>)
-
+    let AddPos = () => {
+        props.dispatch(addActionPostCreator(props.newPostText));
+    }
     let AddPost = () => {
         props.dispatch(addActionPostCreator(props.newPostText));
     }
