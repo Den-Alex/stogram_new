@@ -15,6 +15,11 @@ export type MypostsType = {
     newPostText: string
     dispatch: (action: ActionTypes) => void
 }
+xport type MypostsType = {
+    state: ProfilePageType
+    newPostText: string
+    dispatch: (action: ActionTypes) => void
+}
 
 
 
