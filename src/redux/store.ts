@@ -1,3 +1,7 @@
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
+
 export type PostType = {
     id: number
     message: string
@@ -18,6 +22,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
+    newMessageBody: string
 }
 export type SidebarType = {}
 export type StateType = {
@@ -29,11 +34,22 @@ export type AddPostActiveType = {
     type: "ADD-POST"
     newPostText: string
 }
-export type ChangeNewTextActionType ={
+export type ChangeNewTextActionType = {
     type: "UPDATE-NEW-POST-TEXT"
     newText: string
 }
-export type ActionTypes = AddPostActiveType | ChangeNewTextActionType
+export type UpdateNewMessageBodyCreatorType = {
+    type: "UPDATE-NEW-MESSAGE-TEXT"
+    body: string
+}
+export type SenMessageCreatorType = {
+    type: "SEND-MESSAGE"
+}
+export type ActionTypes =
+    AddPostActiveType
+    | ChangeNewTextActionType
+    | UpdateNewMessageBodyCreatorType
+    | SenMessageCreatorType
 export type StoreType = {
     _state: StateType
     callSubscriber: () => void
@@ -41,8 +57,7 @@ export type StoreType = {
     getState: () => StateType
     dispatch: (action: ActionTypes) => void
 }
-export const ADD_POST = "ADD-POST";
-export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -64,7 +79,8 @@ export let store: StoreType = {
                 {id: 2, message: 'OOOOO'},
                 {id: 3, message: 'UUUUU'},
                 {id: 4, message: 'FFFF'},
-            ]
+            ],
+            newMessageBody: ""
         },
         sidebar: {}
     },
@@ -78,34 +94,14 @@ export let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            let newPost: PostType = {
-                id: 5,
-                message: action.newPostText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = "";
-            this.callSubscriber();
-        } else if (action.type === UPDATE_NEW_POST_TEXT ) {
-            this._state.profilePage.newPostText = action.newText;
-            this.callSubscriber();
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this.callSubscriber();
     }
+}
 
-}
-export let addActionPostCreator = (newPostText: string): AddPostActiveType => {
-    return {
-        type: ADD_POST,
-        newPostText: newPostText
-    }
-}
-export let updateNewPostTextActionCreator = (newText: string): ChangeNewTextActionType => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
-    }
-}
+
 
 
 

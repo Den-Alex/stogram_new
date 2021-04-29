@@ -1,21 +1,10 @@
 import React, {ChangeEvent} from "react";
 import s from './Myposts.module.css'
 import {Posts} from "./Post/Posts";
-import {
-    ActionTypes,
-    addActionPostCreator,
-    AddPostActiveType,
-    ChangeNewTextActionType,
-    ProfilePageType, UPDATE_NEW_POST_TEXT,
-    updateNewPostTextActionCreator
-} from "../../../redux/state";
+import {ActionTypes, AddPostActiveType, ChangeNewTextActionType, ProfilePageType,} from "../../../redux/store";
+import {addActionPostCreator, UPDATE_NEW_POST_TEXT} from "../../../redux/profile-reducer";
 
 export type MypostsType = {
-    state: ProfilePageType
-    newPostText: string
-    dispatch: (action: ActionTypes) => void
-}
-xport type MypostsType = {
     state: ProfilePageType
     newPostText: string
     dispatch: (action: ActionTypes) => void
@@ -26,9 +15,7 @@ xport type MypostsType = {
 export function Myposts(props: MypostsType) {
 
     let postsElements = props.state.posts.map(p => <Posts message={p.message} likesCount={p.likesCount} id={p.id}/>)
-    let AddPos = () => {
-        props.dispatch(addActionPostCreator(props.newPostText));
-    }
+
     let AddPost = () => {
         props.dispatch(addActionPostCreator(props.newPostText));
     }
