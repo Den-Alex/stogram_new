@@ -1,4 +1,4 @@
-import {SenMessageCreatorType, UpdateNewMessageBodyCreatorType} from "./store";
+import {ActionTypes, SenMessageCreatorType, UpdateNewMessageBodyCreatorType} from "./store";
 export const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 export const SEND_MESSAGE = "SEND-MESSAGE";
 
@@ -13,9 +13,23 @@ export let senMessageCreator = (): SenMessageCreatorType => {
         type: SEND_MESSAGE
     }
 }
+let initialState = {
+        dialogs: [
+            {id: 1, name: 'Den'},
+            {id: 2, name: 'Marina'},
+            {id: 3, name: 'Elena'},
+            {id: 4, name: 'Meri'},
+        ],
+        messages: [
+            {id: 1, message: 'YYYYY'},
+            {id: 2, message: 'OOOOO'},
+            {id: 3, message: 'UUUUU'},
+            {id: 4, message: 'FFFF'},
+        ],
+        newMessageBody: ""
+    };
 
-
-export const dialogsReducer = (state: any, action: any) => {
+export const dialogsReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
             state.newMessageBody = action.body;

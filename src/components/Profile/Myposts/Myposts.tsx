@@ -8,26 +8,26 @@ export type MypostsType = {
     state: ProfilePageType
     newPostText: string
     dispatch: (action: ActionTypes) => void
+    addPost: () => void
+    updateNewPostText: (newPostElement: any) => void
 }
-
 
 
 export function Myposts(props: MypostsType) {
 
     let postsElements = props.state.posts.map(p => <Posts message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
-    let AddPost = () => {
-        props.dispatch(addActionPostCreator(props.newPostText));
+    let onAddPost = () => {
+        props.addPost();
     }
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: UPDATE_NEW_POST_TEXT, newText: e.currentTarget.value })
+        props.dispatch({type: UPDATE_NEW_POST_TEXT, newText: e.currentTarget.value})
+        // props.updateNewPostText(newPostElement.current.value)
     }
     // let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: e.currentTarget.value});
+    //      props.updateNewPostText(newPostElement.current.value)        Вернуться к этому моменту!!!!!!!!
     // }
-    // let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     props.dispatch(updateNewPostTextActionCreator(props.n));
-    // }
+
     return (
         <div className={s.content}>
             <h3>My post</h3>
@@ -36,7 +36,7 @@ export function Myposts(props: MypostsType) {
                     <textarea onChange={onPostChange} value={props.newPostText}/>
                 </div>
                 <div>
-                    <button onClick={AddPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div>

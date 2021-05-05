@@ -50,6 +50,7 @@ export type ActionTypes =
     | ChangeNewTextActionType
     | UpdateNewMessageBodyCreatorType
     | SenMessageCreatorType
+
 export type StoreType = {
     _state: StateType
     callSubscriber: () => void
