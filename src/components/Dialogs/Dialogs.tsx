@@ -9,7 +9,7 @@ export type DialogsPropsType = {
     state: DialogsPageType
     store:StoreType
 }
-
+                               // Это все не точно
 export function Dialogs(props: DialogsPropsType) {
     let state = props.store.getState().dialogsPage;
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
@@ -19,8 +19,11 @@ export function Dialogs(props: DialogsPropsType) {
     let onSendMessageClick = () => {
         props.store.dispatch(senMessageCreator())
     }
+    // let onSendMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    //     props.store.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
+    // }
     let onSendMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.store.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
+        props.updateNewMessageBody(e.currentTarget.value)
     }
 
     return (

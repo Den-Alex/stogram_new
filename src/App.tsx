@@ -5,13 +5,19 @@ import {Navbar} from './components/Navbar/Navbar';
 import {Profile} from './components/Profile/Profile';
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from 'react-router-dom';
-import {ActionTypes, StateType, store, StoreType} from "./redux/store";
+import {ActionTypes, StateType, StoreType} from "./redux/store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppType = {
     state: StateType
     dispatch: (action: ActionTypes) => void
     store: any
 }
+// type ApType = {
+//     state: StateType
+//     dispatch: (action: ActionTypes) => void
+//     store: any
+// }
 
 function App(props: AppType) {
 
@@ -21,8 +27,9 @@ function App(props: AppType) {
             <Navbar/>
             <Route path='/profile' render={() => <Profile profilePage={props.state.profilePage}
                                                           dispatch={props.dispatch}
+                                                          store={props.store}
             />}/>
-            <Route path='/dialogs' render={() => <Dialogs store={props.store} state={props.state.dialogsPage}/>}/>
+            <Route path='/dialogs' render={() => <DialogsContainer store={props.store} state={props.state.dialogsPage}/>}/>
         </div>
     );
 }

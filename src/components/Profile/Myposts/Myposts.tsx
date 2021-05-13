@@ -1,21 +1,27 @@
 import React, {ChangeEvent} from "react";
 import s from './Myposts.module.css'
-import {Posts} from "./Post/Posts";
-import {ActionTypes, AddPostActiveType, ChangeNewTextActionType, ProfilePageType,} from "../../../redux/store";
+import {Posts, PostsType} from "./Post/Posts";
+import {
+    ActionTypes,
+    AddPostActiveType,
+    ChangeNewTextActionType,
+    ProfilePageType,
+    StateType,
+} from "../../../redux/store";
 import {addActionPostCreator, UPDATE_NEW_POST_TEXT} from "../../../redux/profile-reducer";
 
 export type MypostsType = {
-    state: ProfilePageType
+    state: any
     newPostText: string
     dispatch: (action: ActionTypes) => void
     addPost: () => void
-    updateNewPostText: (newPostElement: any) => void
+    updateNewPostText: any          // Вернуться к этому моменту!!!!!!!!!!
 }
 
 
 export function Myposts(props: MypostsType) {
 
-    let postsElements = props.state.posts.map(p => <Posts message={p.message} likesCount={p.likesCount} id={p.id}/>)
+    let postsElements = props.state.profilePage.posts.map(p => <Posts message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
     let onAddPost = () => {
         props.addPost();
