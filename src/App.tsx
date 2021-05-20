@@ -13,11 +13,11 @@ type AppType = {
     dispatch: (action: ActionTypes) => void
     store: any
 }
-// type ApType = {
-//     state: StateType
-//     dispatch: (action: ActionTypes) => void
-//     store: any
-// }
+type ApType = {
+    state: StateType
+    dispatch: (action: ActionTypes) => void
+    store: any
+}
 
 function App(props: AppType) {
 
