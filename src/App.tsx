@@ -8,11 +8,7 @@ import {Route} from 'react-router-dom';
 import {ActionTypes, StateType, StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-type AppType = {
-    state: StateType
-    dispatch: (action: ActionTypes) => void
-    store: any
-}
+
 type ApType = {
     state: StateType
     dispatch: (action: ActionTypes) => void
