@@ -4,20 +4,24 @@ import {DialogItem} from './DialogItem/DialogItem';
 import {Message} from './Message/Message';
 import {DialogsPageType,StoreType} from "../../redux/store";
 import {senMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {store} from "../../redux/redux-store";
 
 export type DialogsPropsType = {
-    state: DialogsPageType
-    store:StoreType
+    // state: DialogsPageType
+    // store:StoreType
+    updateNewMessageBody: (e: ChangeEvent<HTMLTextAreaElement>) => void
+    sendMessage: () => void
+    dialogsPage: DialogsPageType
 }
                                // Это все не точно
 export function Dialogs(props: DialogsPropsType) {
-    let state = props.store.getState().dialogsPage;
+    let state = props.dialogsPage;
     let dialogsElements = state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
     let messagesElements = state.messages.map(m => <Message message={m.message} id={m.id}/>);
     let newMessageText = state.newMessageBody;
 
     let onSendMessageClick = () => {
-        props.store.dispatch(senMessageCreator())
+        props.sendMessage
     }
     // let onSendMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     //     props.store.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
@@ -49,3 +53,4 @@ export function Dialogs(props: DialogsPropsType) {
         </div>
     )
 }
+

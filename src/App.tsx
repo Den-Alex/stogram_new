@@ -9,7 +9,7 @@ import {ActionTypes, StateType, StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
-type ApType = {
+type AppType = {
     state: StateType
     dispatch: (action: ActionTypes) => void
     store: any

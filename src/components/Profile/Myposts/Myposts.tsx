@@ -11,7 +11,7 @@ import {
 import {addActionPostCreator, UPDATE_NEW_POST_TEXT} from "../../../redux/profile-reducer";
 
 export type MypostsType = {
-    state: any
+    state: any ///////////////////////////////////
     newPostText: string
     dispatch: (action: ActionTypes) => void
     addPost: () => void
