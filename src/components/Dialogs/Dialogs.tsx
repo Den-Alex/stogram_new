@@ -27,7 +27,7 @@ export function Dialogs(props: DialogsPropsType) {
     //     props.store.dispatch(updateNewMessageBodyCreator(e.currentTarget.value))
     // }
     let onSendMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageBody(e.currentTarget.value)
+        props.updateNewMessageBody(e)
     }
 
     return (

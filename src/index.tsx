@@ -6,25 +6,23 @@ import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 
-export let rerenderEntireTree = () => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <App state={store.getState()}
-                 dispatch={store.dispatch.bind(store)}
-                 store={store}
-            />
-        </BrowserRouter>, document.getElementById('root'));
-}
+
+ReactDOM.render(
+    <BrowserRouter>
+        <App state={store.getState()}
+             dispatch={store.dispatch.bind(store)}
+             store={store}
+        />
+    </BrowserRouter>, document.getElementById('root'));
 
 
-rerenderEntireTree();
-store.subscribe(rerenderEntireTree)
+// rerenderEntireTree();
+// store.subscribe(rerenderEntireTree)
 // store.subscribe( () => {
 //     let state = store.getState();
 //     rerenderEntireTree(state)
 //     }
 // )
-
 
 
 // If you want to start measuring performance in your app, pass a function

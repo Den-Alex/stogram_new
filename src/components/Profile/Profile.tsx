@@ -15,10 +15,10 @@ export function Profile(props: ProfileType) {
     return (
         <div className={s.content}>
             <Profileinfo/>
-            <MypostsContainer store={props.store}             // Вернуться к этому моменту!!!!!!!!!!
-                              state={props.profilePage}
-                              dispatch={props.dispatch}
+            <MypostsContainer dispatch={props.dispatch}
                               newPostText={props.profilePage.newPostText}
+                              store={props.store}             // Вернуться к этому моменту!!!!!!!!!!
+                              state={props.profilePage}
             />
         </div>
     )

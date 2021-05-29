@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from "react";
-import s from './Myposts.module.css'
 
 import {
     ActionTypes,
@@ -15,6 +14,7 @@ import {
 } from "../../../redux/profile-reducer";
 import {Myposts} from "./Myposts";
 import {connect} from "react-redux";
+import {deflate} from "zlib";
 
 export type MypostsContainerType = {
     state: ProfilePageType
@@ -23,23 +23,28 @@ export type MypostsContainerType = {
     // updateNewPostText: (newPostElement: any) => void
     store: StoreType
 }
+export type DispatchType = {
+    dispatch: (action: ActionTypes) => void
+}
 
 const mapStateToProps = (state: StateType) => {
     return {
         newPostText: state.profilePage.newPostText,
         posts: state.profilePage.posts
 
+    }
 }
+
 const mapDispatchToProps = (dispatch: any) => {
     return {
         updateNewPostText: (e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(updateNewPostTextActionCreator(e))
+            dispatch(updateNewPostTextActionCreator())   //newText??????
         },
         addPost: () => {
-            dispatch(addActionPostCreator(state.profilePage.newPostText)) //не передается NewText
+            dispatch(addActionPostCreator()) //не передается NewPostText????
         }
     }
 }
 
 
-export const MypostsContainer = connect(mapStateToProps, mapDispatchToProps)(Myposts);
+export const MypostsContainer = connect(mapStateToProps, mapDispatchToProps)(Myposts)

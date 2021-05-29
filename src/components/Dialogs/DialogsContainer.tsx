@@ -8,6 +8,10 @@ export type DialogsPropsType = {
     state: DialogsPageType
     store: StoreType
 }
+// export type DialogsPropType = {
+//     state: DialogsPageType
+//     store: StoreType
+// }
 
 
 let mapStateToProps = (state: StateType) => {
