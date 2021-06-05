@@ -4,6 +4,7 @@ type LocationType = {
 }
 type UsersType = {
     id: number
+    photoUrl: string
     fillName: string
     status: string
     location: LocationType
@@ -17,31 +18,9 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET-USERS";
 
 export let initialState: initialStateType = {
-    users: [
-        {
-            id: 1,
-            fillName: "Denis",
-            followed: true,
-            status: "I am a boss",
-            location: {city: "Mogilev", country: "Belarus"}
-        },
-        {
-            id: 2,
-            fillName: "Marina",
-            followed: false,
-            status: "I am a boss too",
-            location: {city: "Vitebsk", country: "Belarus"}
-        },
-        {
-            id: 3,
-            fillName: "Kristina",
-            followed: true,
-            status: "I am a boss too",
-            location: {city: "Minsk", country: "Belarus"}
-        }
-    ]
+    users: []
 }
-const usersReduser = (state = initialState, action: any) => {
+export const usersReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -63,6 +42,11 @@ const usersReduser = (state = initialState, action: any) => {
                     return u;
                 })
             }
+        case SET_USERS: {
+            return { ...state, users: [...state.users, ...action.users]}
+        }
+        default:
+            return state
     }
 }
 export const followAC = (userId: any) => ({type: FOLLOW, userId});

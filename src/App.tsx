@@ -7,7 +7,7 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from 'react-router-dom';
 import {ActionTypes, StateType, StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-import { Users } from './components/Users/Users';
+import UsersContainer from './components/Users/UsersContainer';
 
 
 type AppType = {
@@ -28,7 +28,7 @@ function App(props: AppType) {
             />}/>
             <Route path='/dialogs' render={() => <DialogsContainer store={props.store}
                                                                    state={props.state.dialogsPage}/>}/>
-            <Route path='/user' render={ () => <Users/>}/>
+            <Route path='/user' render={ () => <UsersContainer/>}/>
         </div>
     );
 }
