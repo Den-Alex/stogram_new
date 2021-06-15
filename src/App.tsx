@@ -15,6 +15,11 @@ type AppType = {
     dispatch: (action: ActionTypes) => void
     store: any
 }
+type AppType1 = {
+    state: StateType
+    dispatch: (action: ActionTypes) => void
+    store: any
+}
 
 function App(props: AppType) {
 
